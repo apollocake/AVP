@@ -6,7 +6,8 @@
 *.user
 *.userosscache
 *.sln.docstates
-*wwwroot/lib/
+#Bootstrap\ Site/src/Bootstrap\ Site/wwwroot/lib/
+**/wwwroot/lib/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
