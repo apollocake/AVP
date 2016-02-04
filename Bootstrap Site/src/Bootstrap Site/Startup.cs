@@ -51,9 +51,12 @@ namespace Bootstrap_Site
 
             app.UseApplicationInsightsExceptionTelemetry();
 
-            app.UseStaticFiles();
+            app.UseDefaultFiles();
 
-            app.UseMvc();
+            app.UseStaticFiles();
+            
+
+            //app.UseMvc();
         }
 
         // Entry point for the application.
