@@ -10,7 +10,7 @@
   "profiles": {
     "IIS Express": {
       "commandName": "IISExpress",
-      "launchUrl": "index.html",
+      "launchBrowser": true,
       "environmentVariables": {
         "Hosting:Environment": "Development"
       }
