@@ -4,69 +4,87 @@
     <meta charset="utf-8" />
     <title>Home</title>
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="/lib/bootswatch/cerulean/bootstrap.css" />
-    <link rel="stylesheet" href="/lib/Font-Awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="/lib/bootswatch/cosmo/bootstrap.css" />
+    <link rel="stylesheet" href="/lib/Font-Awesome/css/font-awesome.min.css"/>
 </head>
 <body>
-<!--navbar is the base class and default applies normal colors-->
-<nav class="navbar navbar-default">
-    <!-- fluid ensures navbar is stretched across the page-->
-    <div class="container-fliud">
-        <!-- Brand and mobile toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <!-- hook together with data-target -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <!-- Three lines make a hamburger -->
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a href="/index.html" class="navbar-brand"><i class="fa fa-home"></i> Afton Martin</a>
+    <!--navbar is the base class and invert changes normal colors-->
+    <nav class="navbar navbar-inverse">
+        <!-- fluid ensures navbar is stretched across the page-->
+        <div class="container-fliud">
+            <!-- Brand and mobile toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <!-- hook together with data-target -->
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <!-- Three lines make a hamburger -->
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="/index.html" class="navbar-brand"><i class="fa fa-home"></i> Afton Martin</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+
+                    <li><a href="/blog.html"><i class="fa fa-book"></i> Blog</a></li>
+                    <li><a href="/resume.html"><i class="fa fa-bar-chart"></i> Resume</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="/contact.html"><i class="fa fa-bullhorn"></i> Contact Me</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div id="abouttext" class="container">
+        <div id="col1" class="col-md-4">
+            <article>
+                <header>
+                    <h1>Hobbies</h1>
+                </header>
+                <section>
+                    <p>
+                        I've mainly been busy at school. But when I have time I like to play games. Especially things from the 
+                        <a href="https://en.wikipedia.org/wiki/Souls_(series)">Dark Souls</a> series. I've been wanting to get into
+                        <a href="https://en.wikipedia.org/wiki/Dwarf_Fortress">Dwarf Fortress</a> when I have time, but it's not a game I can play while going to school
+                        due to it's time investment. The <a href="http://dwarffortresswiki.org/index.php/v0.31:Quickstart_guide">quickstart guide</a>  can be considered a long process in and of itself.
+                        <div><img src="http://i.imgur.com/SGpTs92.png"/></div>
+                    </p>
+                </section>
+                <footer>
+                    The game itself is fairly ugly, but if you want to see the level of detail involved I would suggest checking out the
+                    <a href="https://youtu.be/FIzZ0C0V0hk">stories</a> it can inspire.
+                </footer>
+            </article>
         </div>
+        <div id="col2"class="col-md-3">
+            <article>
+                <header>
+                    <h1>Interests outside of CS</h1>
+                </header>
+                <section>
+                    <ul>
+                        <li>Audio Engineering</li>
+                        <li>Science</li>
+                        <li>Philosophy</li>
+                        <li>Psychology</li>
+                    </ul>
+                </section>
+                <footer>
+                </footer>
+            </article>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-
-                <li><a href="/blog.html"><i class="fa fa-book"></i> Blog</a></li>
-                <li><a href="/resume.html"><i class="fa fa-bar-chart"></i> Resume</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="/contact.html"><i class="fa fa-bullhorn"></i> Contact Me</a></li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-<div class="container">
-    <p>above the article tags but in container</p>
-    <article>
-        <header>
-            <h1 id="sweeth1">Generic Page header in article</h1>
-        </header>
-        <section>
-            <section>
-                <h1>H1 first section 1</h1>
-                <p>paragraph section 1</p>
-            </section>
-            <section>
-                <h1>H1 first section 2</h1>
-                <p>paragraph section 2</p>
-
-                <ol>
-                    <li>I wrote it</li>
-                    <li>That's all the reasons we need</li>
-                </ol>
-            </section>
-
-        </section>
-        <footer>
-            Footer info
-        </footer>
-    </article>
-</div>
+        </div>
+        <div id="col3"class="col-md-5 hidden-sm hidden-xs">
+            <article>
+                <img src="self.JPG" class="img-rounded img-responsive" alt="Afton Martin" width="304" height="236">
+             </article>
+        </div>
+    </div>
     <!-- Dropdown uses jquery so it is required IF used by bootstrap-->
-<script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
-<script type="text/javascript" src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
 </body>
 </html>
