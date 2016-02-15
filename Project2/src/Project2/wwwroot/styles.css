@@ -1,0 +1,29 @@
+﻿body {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    padding-top: 100px;
+}
+
+.blog-title {
+    font-family: Verdana, Geneva, sans-serif;
+    letter-spacing: -1px;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 30px;
+
+}
+.blog-header {
+    color: #FFFFFF;
+    background-color: #404040;
+    background-image: url("blogbanner.png")
+    /*border-bottom: 1px solid #e5e5e5;*/
+}
+
+.list-unstyled-left {
+    padding-left: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+h1, h2, h3 {
+    font-weight: 400;
+}
+
