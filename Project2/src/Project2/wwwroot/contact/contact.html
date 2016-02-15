@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html>
+<html ng-app="project2">
 <head>
     <meta charset="utf-8" />
     <title>Contact</title>
@@ -9,10 +9,11 @@
     <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-    <!--navbar is the base class and default applies normal colors-->
-    <nav class="navbar navbar-inverse">
-        <!-- fluid ensures navbar is stretched across the page-->
-        <div class="container-fliud">
+    <!-- fluid ensures navbar is stretched across the page-->
+    <div class="container-fliud" ng-controller="contactController">
+        <!--navbar is the base class and default applies normal colors-->
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+
             <!-- Brand and mobile toggle get grouped for better mobile display -->
             <div class="navbar-header">
                 <!-- hook together with data-target -->
@@ -30,17 +31,65 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
 
-                    <li><a href="/blog/blog.html"><i class="fa fa-book"></i> Blog</a></li>
+                    <li><a href="/blog/blog.html"><i class="fa fa-book"></i>{{info.name}} Blog</a></li>
                     <li><a href="/resume/resume.html"><i class="fa fa-bar-chart"></i> Resume</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="/contact/contact.html"><i class="fa fa-bullhorn"></i> Contact Me</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
-        </div><!-- /.container-fluid -->
-    </nav>
+
+        </nav>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-6">
+                <form name="userForm" action="mailto:amartin33@uco.edu" enctype="text/plain" method="get" novalidate>
+
+                    <!-- DROPDOWN -->
+                    <div class="form-group">
+                        <label>Reason For Contact</label>
+                        <input type="text" name="reason" class="form-control" ng-model="user.reason" required>
+                        <p ng-show="userForm.reason.$invalid && !userForm.reason.$pristine" class="help-block">You reason is required.</p>
+                    </div>
+
+                    <!-- NAME -->
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.name.$invalid && !userForm.name.$pristine }">
+                        <label>Name</label>
+                        <input type="text" name="name" class="form-control" ng-model="user.name" required>
+                        <p ng-show="userForm.name.$invalid && !userForm.name.$pristine" class="help-block">Your name is required.</p>
+                    </div>
+
+                    <!-- QUESTION -->
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.question.$invalid && !userForm.question.$pristine }">
+                        <label>Question</label>
+                        <textarea type="text" name="question" class="form-control" rows="3" ng-model="user.question" ng-minlength="20" ng-maxlength="100" required></textarea>
+
+                        <p ng-show="userForm.question.$error.minlength" class="help-block">Question is too short.</p>
+                        <p ng-show="userForm.question.$error.maxlength" class="help-block">Question is too long.</p>
+                    </div>
+
+                    <!-- EMAIL -->
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.email.$invalid && !userForm.email.$pristine }">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control" ng-model="user.email" required>
+                        <p ng-show="userForm.email.$invalid && !userForm.email.$pristine" class="help-block">Enter a valid email.</p>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" ng-disabled="userForm.$invalid">Submit</button>
+
+                </form>
+            </div>
+        </div> <!--row-->
+    </div><!-- /.container-fluid -->
     <!-- Dropdown uses jquery so it is required IF used by bootstrap-->
     <script type="text/javascript" src="/lib/jquery/dist/jquery.min.js"></script>
+
     <script type="text/javascript" src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/lib/angular/angular.js"></script>
+    <!--angular module-->
+    <script type="text/javascript" src="/app.js"></script>
+    <!--angular controller-->
+    <script type="text/javascript" src="contactController.js"></script>
 </body>
 </html>
