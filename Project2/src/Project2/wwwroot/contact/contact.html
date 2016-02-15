@@ -31,7 +31,7 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
 
-                    <li><a href="/blog/blog.html"><i class="fa fa-book"></i>{{info.name}} Blog</a></li>
+                    <li><a href="/blog/blog.html"><i class="fa fa-book"></i> Blog</a></li>
                     <li><a href="/resume/resume.html"><i class="fa fa-bar-chart"></i> Resume</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -47,9 +47,13 @@
                 <form name="userForm" action="mailto:amartin33@uco.edu" enctype="text/plain" method="get" novalidate>
 
                     <!-- DROPDOWN -->
-                    <div class="form-group">
-                        <label>Reason For Contact</label>
-                        <input type="text" name="reason" class="form-control" ng-model="user.reason" required>
+                    <div class="form-group" ng-class="{ 'has-error' : userForm.reason.$invalid && !userForm.reason.$pristine }">
+                        <label>Reason for Contact</label>
+                        <select type="text" name="reason" class="form-control" ng-model="user.reason" required>
+                            <option>I'm confused about things</option>
+                            <option>Your site is wrong</option>
+                            <option>Other</option>
+                        </select>
                         <p ng-show="userForm.reason.$invalid && !userForm.reason.$pristine" class="help-block">You reason is required.</p>
                     </div>
 
