@@ -1,0 +1,51 @@
+﻿<!--modeled after faq.html-->
+<div>
+    <label>Github User or Repo:</label><br/>
+    <select name="repoUserSelect" id="repoUserSelect" ng-model="repoUser.selection">
+        <option value="">---Please select User or Repo---</option> <!-- not selected / blank option -->
+        <option value="repo">Repo</option>
+        <option value="user">User</option>
+    </select><br>
+    <input type="text" ng-model="query">
+    <button ng-click="clearThenSearch()">Search</button><br>
+    <div ng-show="completedSearch">
+        <p>Search returned {{resultsCount}} results</p>
+    </div>
+
+
+    <div ng-show="returnedRepo && repoUser.selection === 'repo'">
+
+
+        <ul class="list-inline">
+            <li ng-repeat="repo in info.repos.items">
+                <p>Repo Name: {{repo.name}}</p>
+                <img ng-src="{{repo.owner.avatar_url}}" height="60" width="60">
+                <p>Number of open Issues: {{repo.open_issues}}</p>
+                <p>Stargazers: {{repo.stargazers_count}}</p>
+                <p>Watchers: {{repo.watchers_count}}</p>
+                <p>Language: {{repo.language}}</p>
+                <p>index: {{$index}}</p>
+                <a ui-sref="repo({userId: '{{repo.owner.login}}', repoId: '{{repo.name}}'})">Details</a>
+            </li>
+        </ul>
+    </div>
+    <div ng-show="returnedUser && repoUser.selection === 'user'">
+        <ul class="list-inline">
+            <li ng-repeat="user in info.userdata.items">
+                <img ng-src="{{user.avatar_url}}" height="60" width="60">
+                <p>Login Id: {{user.login}}</p>
+                <a ui-sref="user({userId: '{{user.login}}'})">Details</a>
+            </li>
+        </ul>
+    </div>
+    <div ng-show="resultsCount > 1">
+        <a class="btn" ng-disabled="currentpage == 1" ng-click="goBackward()">
+            <i class="fa fa-arrow-left"></i> Previous
+        </a>
+        {{currentpage}}
+        <a class="btn" ng-disabled="maxPages == currentpage" ng-click="goForward()">
+            Next <i class="fa fa-arrow-right"></i>
+        </a>
+    </div>
+
+</div>

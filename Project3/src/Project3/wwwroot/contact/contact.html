@@ -1,0 +1,47 @@
+﻿<div id="contactform">
+    <h1>Contact Mike <small>For all the hard questions.</small></h1>
+    <div class="row">
+        <div class="col-xs-8">
+            <form name="form.contactForm">
+                <div class="form-group" show-errors='{ showSuccess: true }'>
+                    <label>Name:</label>
+                    <input name="name" ng-model="contact.name" class="form-control" type="text" ng-required="true"/>
+                </div>
+                <div class="form-group" show-errors='{ showSuccess: true }'>
+                    <label>
+                        Age:</label>
+                    <input ng-model="contact.age" name="age" ng-required="true" class="form-control" type="number" ng-min="20" ng-max="100"/>
+                    <p class="help-block" ng-if="form.contactForm.age.$error.min">You have to be at least 20 to contact me.</p>
+                </div>
+                <div class="form-group">
+                    <label>Date Submitted:</label>
+                    <input class="form-control" type="date"/>
+                </div>
+                <div class="form-group">
+                    <label>Question?:</label>
+                    <textarea class="form-control"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Are you a robot?</label>
+                    <input type="radio" name="robotquestion"/>Yes
+                    <input type="radio" name="robotquestion"/>NO
+                    <input type="checkbox"/>Only robots check this.
+                </div>
+                <div class="form-group">
+                    <label>Do you need a response?</label>
+                    <select class="form-control">
+                        <option value="Y">Yes</option>
+                        <option value="N">No</option>
+
+                    </select>
+                </div>
+                <div>
+                    <button class="btn btn-primary" ng-click="sendContact()"><i class="fa fa-save"></i> Send it to Mike</button>
+                </div>
+            </form>
+        </div>
+        <div class="col-xs-4 visible-md hidden-xs">
+            <img src="https://farm8.staticflickr.com/7507/15484723408_a559853577.jpg"/>
+        </div>
+    </div>
+</div>

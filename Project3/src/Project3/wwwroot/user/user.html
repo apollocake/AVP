@@ -1,0 +1,48 @@
+﻿<h1>User {{userData.login}}</h1>
+
+<button ng-click="printParams()">Click me</button>
+<ul class="list-unstyled">
+    <li><img ng-src="{{userData.avatar_url}}"></li>
+    <li><a ng-href="{{userData.html_url}}">Github Page</a></li>
+    <li>Name: {{userData.name}}</li>
+    <li>Blog: {{userData.blog}}</li>
+    <li>Location: {{userData.location}}</li>
+</ul>
+
+
+<div ng-show="noRepos">
+    <p>There are no repos for this user</p>
+</div>
+<div ng-hide="noRepos" class="ng-hide">
+    <h2>Repos</h2>
+    <table class="table table-striped">
+        <tr>
+            <th>Name</th>
+            <th>Stars</th>
+            <th>Issues</th>
+            <th>Language</th>
+
+        </tr>
+        <tr ng-repeat="repo in info.repos">
+            <td><a ui-sref="repo({userId: '{{userData.login}}', repoId: '{{repo.name}}'})">{{repo.name}}</a></td>
+            <td>{{repo.stargazers_count}}</td>
+            <td>{{repo.open_issues_count}}</td>
+            <td>{{repo.language}}</td>
+        </tr>
+    </table>
+</div>
+
+
+<div ng-show="noFollowers">
+    <p>There are no followers for this user</p>
+</div>
+<div ng-hide="noFollowers" class="ng-hide">
+<h2>Followers</h2>
+<table class="table table-striped">
+    <tr ng-repeat="follower in info.followers">
+        <td><img ng-src="{{follower.avatar_url}}" height="60" width="60"></td>
+        <td>{{follower.login}}</td>
+    </tr>
+</table>
+</div>
+

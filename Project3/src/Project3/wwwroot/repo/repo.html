@@ -1,0 +1,60 @@
+﻿<h1>Repo {{repoData.name}}</h1>
+
+<button ng-click="printParams()">Click me</button>
+<ul class="list-unstyled">
+    <li>Name: {{repoData.name}}</li>
+    <li><a ng-href="{{repoData.html_url}}">Github Page</a></li>
+    <li>Description: {{repoData.description}}</li>
+    <li>Stars: {{repoData.stargazers_count}}</li>
+    <li>Watchers: {{repoData.watchers_count}}</li>
+    <li>Forks: {{repoData.forks_count}}</li>
+    <li>Open Issues: {{repoData.open_issues_count}}</li>
+    <li>Language: {{repoData.language}}</li>
+    <li>Clone Url: {{repoData.clone_url}}</li>
+</ul>
+
+<h2>Commits</h2>
+<table class="table table-striped">
+    <tr>
+        <th>Author</th>
+        <th>Github</th>
+        <th>Message</th>
+        <th>Comments</th>
+
+    </tr>
+    <tr ng-repeat="commit in info.commits">
+        <td>{{commit.commit.author.name}}</td>
+        <td><a ng-href="{{commit.html_url}}">Commit Page</a></td>
+        <td>{{commit.commit.message}}</td>
+        <td>{{commit.commit.comment_count}}</td>
+    </tr>
+</table>
+
+<h2>Issues</h2>
+<div ng-show="noIssues">
+    <p>There are no issues for this repo</p>
+</div>
+<div ng-hide="noIssues" class="ng-hide">
+    <table class="table table-striped">
+        <tr>
+            <th>Title</th>
+            <th>Created Date</th>
+            <th>Issue Link</th>
+        </tr>
+        <tr ng-repeat="issue in info.issues | startFrom:currentPage*pageSize | limitTo:pageSize">
+            <td>{{issue.title}}</td>
+            <td>{{issue.created_at}}</td>
+            <td><a ng-href="{{issue.html_url}}">Issue</a></td>
+        </tr>
+    </table>
+
+
+    <a class="btn" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+        <i class="fa fa-arrow-left"></i> Previous
+    </a>
+    {{currentPage+1}}/{{numberOfPages()}}
+    <a class="btn" ng-disabled="currentPage >= info.issues.length/pageSize - 1" ng-click="currentPage=currentPage+1">
+        Next <i class="fa fa-arrow-right"></i>
+    </a>
+
+</div>

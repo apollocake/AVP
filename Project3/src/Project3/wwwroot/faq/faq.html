@@ -1,0 +1,44 @@
+﻿<h1 ng-cloak>{{info.firstName }} Questions</h1>
+<div>
+    <p>Countdown of DOOM: {{ countdown }} <button ng-click="cancelCountdown()">CUT THE RED WIRE!</button></p>
+</div>
+<a ng-hide="addingQuestion" ng-click="showQuestionForm()">Add a question</a>
+    <div ng-if="addingQuestion">
+        <form>
+            <div class="form-group">
+                <label>Question:</label>
+                <input class="form-control" type="text" ng-model="newQuestion.question" />
+            </div>
+            <div class="form-group">
+                <label>Answer:</label>
+                <input class="form-control" type="text" ng-model="newQuestion.answer"/>
+            </div>
+            <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="neqQuestion.date" is-open="popup1.opened" datepicker-options="dateOptions" close-text="Close" />
+                <span class="input-group-btn">
+                    <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+            </p>
+            <button class="btn btn-success" ng-click="addQuestion()">Add Question</button>
+        </form>
+    </div>
+
+<table class="table table-striped">
+    <tr>
+        <th>Question</th>
+        <th>Answer</th>
+        <th>Action</th>
+    </tr>
+    <tr ng-repeat="question in questions | orderBy:'-question' track by $index">
+        <td>{{question.question}}</td>
+        <td>{{question.answer}}</td>
+        <td><a ng-click="deleteQuestion(question)" href="#">Delete</a></td>
+    </tr>
+</table>
+
+//custom faq directive
+<div my-customer></div>
+    <button ng-click="updateUserImage()">Update image from github</button>
+<div>
+    <img ng-src="{{info.imageSrc}}" title="{{info.firstName}}"/>
+</div>
