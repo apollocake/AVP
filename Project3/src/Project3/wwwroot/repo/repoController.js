@@ -21,25 +21,16 @@
 
 
                 $scope.repoData = repoData;
-                $scope.printParams = function () {
-                    console.log($stateParams);
-                    console.log(repoData);
-
-                }
 
                 githubCommitService.getGithubData($stateParams.userId, $stateParams.repoId).then(
                     function (data) {
                         $scope.info.commits = data;
                         $scope.info.commits = $scope.info.commits.slice(0, 5);
-                        console.log("commits");
-                        console.log($scope.info.commits);
                     });
 
                 githubIssuesService.getGithubData($stateParams.userId, $stateParams.repoId).then(
                     function (data) {
                         $scope.info.issues = data;
-                        console.log("issues");
-                        console.log($scope.info.issues);
                         if ($scope.info.issues.length !== 0) {
                             $scope.noIssues = false;
                         }

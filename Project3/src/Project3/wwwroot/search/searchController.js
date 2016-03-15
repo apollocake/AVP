@@ -29,8 +29,6 @@
                     githubService.getGithubData($scope.query, $scope.currentpage).then(
                         function (data) {
                             $scope.info.repos = data;
-                            console.log("repos from githubService");
-                            console.log($scope.info.repos);
                             //reposCount triggers pagination visibility
                             $scope.resultsCount = data.total_count;
                             $scope.returnedRepo = true;
@@ -42,18 +40,15 @@
                         function (data) {
 
                             $scope.info.userdata = data;
-                            console.log("userdata from githubUserService");
-                            console.log($scope.info.userdata);
                             $scope.resultsCount = data.total_count;
                             $scope.returnedUser = true;
                             $scope.completedSearch = true;
-                            console.log($scope.info.userdata);
                             $scope.maxPages = Math.ceil($scope.info.userdata.total_count / $scope.info.userdata.items.length);
 
                         },
                         function (reason) {
                             //hopefully any http status codes finally resolve here :(
-                            console.log("we handled the error from the promise!")
+                            //console.log("we handled the error from the promise!")
                             console.log(reason);
                             $scope.resultsCount = 0;
                             $scope.completedSearch = true;
