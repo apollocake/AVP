@@ -12,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json.Serialization;
+using Project4.Repositories;
 
 namespace Project4
 {
@@ -38,7 +39,7 @@ namespace Project4
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
         {
-            // Add framework services.
+            // Add framework services. Bootstrap dependencies across ASP app
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc().AddJsonOptions(opt =>
@@ -47,7 +48,10 @@ namespace Project4
             });
                         
             services.AddEntityFramework().AddSqlServer().AddDbContext<ProjectContext>();
+            //dont persist, only for startup
             services.AddTransient<ProjectAppSeedData>();
+            //when interface is requested provide concrete implementation for decoupling
+            services.AddScoped<IProjectRepository, ProjectRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

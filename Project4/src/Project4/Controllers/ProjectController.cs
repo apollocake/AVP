@@ -7,6 +7,7 @@ using Microsoft.AspNet.Mvc;
 //using Microsoft.Dnx.Compilation.CSharp;
 using Project4.ViewModels;
 using Project4.Models;
+using Project4.Repositories;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,62 +17,54 @@ namespace Project4.Controllers
     [Route("api/[controller]")]
     public class ProjectController : Controller
     {
-        private IList<ProjectViewModel> _projects;
-        private ProjectContext _context;
+        private IProjectRepository _repository;
 
-        public ProjectController(ProjectContext context)
+        public ProjectController(IProjectRepository repository)
         {
-            _projects = new List<ProjectViewModel>()
-            {
-                new ProjectViewModel()
-                {
-                    Description = "Another fun thingy",
-                    Name = "Project 4"
-                },
-
-                new ProjectViewModel()
-                {
-                    Description = "Aweseomeememememememe",
-                    Name = "Project 5"
-                }
-            };
-            _context = context;
+            _repository = repository;
         }
         // GET: api/project
         [HttpGet]
         public IEnumerable<Project> Get()
         {
-            var projects = _context.Projects.ToList();
+            var projects = _repository.List();
             return projects;
         }
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public JsonResult Get(int id)
+        public Project Get(int id)
         {
-            JsonResult result = Json(_projects[id]);
-            result.StatusCode = (int)HttpStatusCode.Accepted;
-            return result;
+            return _repository.FindById(id);
+        }
+
+        // GET api/project/search/{queryId}
+        [HttpGet("search/{queryString}")]
+        public IEnumerable<Project> Search(string queryString)
+        {
+            return _repository.FindBySearchString(queryString);
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]ProjectViewModel newProject)
+        public void Post([FromBody]Project newProject)
         {
             Response.StatusCode = (int) HttpStatusCode.Created;
-            _projects.Add(newProject);
+            _repository.Create(newProject);
         }
 
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        // PUT api/project
+        [HttpPut()]
+        public void Put([FromBody]Project newProject)
         {
+            _repository.Update(newProject);
         }
 
-        // DELETE api/values/5
+        // DELETE api/project/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+            _repository.Delete(id);
         }
     }
 }
