@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
+//using Microsoft.Dnx.Compilation.CSharp;
 using Project4.ViewModels;
+using Project4.Models;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,7 +17,9 @@ namespace Project4.Controllers
     public class ProjectController : Controller
     {
         private IList<ProjectViewModel> _projects;
-        public ProjectController()
+        private ProjectContext _context;
+
+        public ProjectController(ProjectContext context)
         {
             _projects = new List<ProjectViewModel>()
             {
@@ -31,12 +35,14 @@ namespace Project4.Controllers
                     Name = "Project 5"
                 }
             };
+            _context = context;
         }
         // GET: api/project
         [HttpGet]
-        public IEnumerable<ProjectViewModel> Get()
+        public IEnumerable<Project> Get()
         {
-            return _projects;
+            var projects = _context.Projects.ToList();
+            return projects;
         }
 
         // GET api/values/5

@@ -2,8 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+//building awareness
+using Project4.Models;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+//reference clash with Microsoft.Dnx.Compilation.CSharp.ProjectContext and Models.ProjectContext
+//using Microsoft.Dnx.Compilation.CSharp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -26,10 +30,10 @@ namespace Project4
             }
 
             builder.AddEnvironmentVariables();
-            Configuration = builder.Build().ReloadOnChanged("appsettings.json");
+            Configuration = builder.Build();
         }
 
-        public IConfigurationRoot Configuration { get; set; }
+        public static IConfigurationRoot Configuration { get; set; }
 
         // This method gets called by the runtime. Use this method to add services to the container
         public void ConfigureServices(IServiceCollection services)
@@ -41,10 +45,13 @@ namespace Project4
             {
                 opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
+                        
+            services.AddEntityFramework().AddSqlServer().AddDbContext<ProjectContext>();
+            services.AddTransient<ProjectAppSeedData>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ProjectAppSeedData seeder)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -58,6 +65,10 @@ namespace Project4
             app.UseStaticFiles();
 
             app.UseMvc();
+
+            //seeder.DeleteDatabase();
+            seeder.SeedData();
+
         }
 
         // Entry point for the application.
