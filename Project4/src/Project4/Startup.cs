@@ -74,8 +74,8 @@ namespace Project4
 
             app.UseMvc();
 
-            //seeder.DeleteDatabase();
-            seeder.SeedData();
+           //seeder.DeleteDatabase();
+           seeder.SeedData();
 
         }
 
