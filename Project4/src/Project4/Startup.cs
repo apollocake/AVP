@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 //building awareness
 using Project4.Models;
 using Microsoft.AspNet.Builder;
@@ -50,8 +51,11 @@ namespace Project4
             services.AddEntityFramework().AddSqlServer().AddDbContext<ProjectContext>();
             //dont persist, only for startup
             services.AddTransient<ProjectAppSeedData>();
-            //when interface is requested provide concrete implementation for decoupling
+            //when interface is requested provide concrete implementation for decoupling from repository and model
             services.AddScoped<IProjectRepository, ProjectRepository>();
+            //automapper config for mapping acrooss the app
+            var config = new MapperConfiguration(c => {c.AddProfile(new ModelToViewModelProfile());});
+            services.AddSingleton<IMapper>(sp => config.CreateMapper());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline

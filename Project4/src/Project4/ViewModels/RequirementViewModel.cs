@@ -1,12 +1,14 @@
-﻿using System.IO;
+﻿using System.Security.AccessControl;
 
-namespace Project4.Models
+namespace Project4.ViewModels
 {
-    public class Requirement
+    public class RequirementViewModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
         public string Description { get; set; }
-        public Project Project { get; set; }
-}
+
+
+    }
 }

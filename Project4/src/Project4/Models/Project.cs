@@ -13,6 +13,6 @@ namespace Project4.Models
         public string Description { get; set; }
         public DateTime DueDate { get; set; }
 
-        public IEnumerable<Requirement> Requirements { get; set; }
+        public ICollection<Requirement> Requirements { get; set; }
     }
 }

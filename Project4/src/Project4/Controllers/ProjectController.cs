@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNet.Mvc;
 //using Microsoft.Dnx.Compilation.CSharp;
 using Project4.ViewModels;
@@ -18,17 +19,23 @@ namespace Project4.Controllers
     public class ProjectController : Controller
     {
         private IProjectRepository _repository;
+        private IMapper _mapper;
 
-        public ProjectController(IProjectRepository repository)
+        public ProjectController(IProjectRepository repository, IMapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
         // GET: api/project
         [HttpGet]
-        public IEnumerable<Project> Get()
+        public IEnumerable<ProjectViewModel> Get()
         {
+            //get model data
             var projects = _repository.List();
-            return projects;
+            //automapper will map Projects to ProjectViewModel and Req...Model and using the relationships of ProjectViewModel
+            //it also kills circular relationships for serializability and your OO will look like View Models as far as relationships
+            var mappedProjects = _mapper.Map<IEnumerable<ProjectViewModel>>(projects);
+            return mappedProjects;
         }
 
         // GET api/values/5

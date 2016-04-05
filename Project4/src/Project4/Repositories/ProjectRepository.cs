@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Project4.Models;
+using Microsoft.Data.Entity;
 
 namespace Project4.Repositories
 {
@@ -35,7 +36,6 @@ namespace Project4.Repositories
 
             var project = _context.Projects.First(p => p.Id == id);
             return project;
-
         }
 
         public IEnumerable<Project> FindBySearchString(string queryString)
@@ -45,7 +45,8 @@ namespace Project4.Repositories
 
         public IEnumerable<Project> List()
         {
-            var projects = _context.Projects.ToList();
+            //Include is to bring the child table with the list
+            var projects = _context.Projects.Include(p => p.Requirements).ToList();
             return projects;
         }
 
