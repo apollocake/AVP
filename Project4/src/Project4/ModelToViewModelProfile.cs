@@ -13,8 +13,8 @@ namespace Project4
         protected override void Configure()
         {
             //create OO mapping automation from Model to ViewModels by prop name
-            CreateMap<Project, ProjectViewModel>();
-            CreateMap<Requirement, RequirementViewModel>();
+            CreateMap<Todo, TodoViewModel>();
+            CreateMap<Tag, TagViewModel>();
         }
     }
 }

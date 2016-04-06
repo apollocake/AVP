@@ -7,47 +7,46 @@ using Project4.Models;
 
 namespace Project4.Migrations
 {
-    [DbContext(typeof(ProjectContext))]
-    [Migration("20160404054649_myDatabase")]
-    partial class myDatabase
+    [DbContext(typeof(TodoContext))]
+    partial class TodoContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.0-rc1-16348")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Project4.Models.Project", b =>
+            modelBuilder.Entity("Project4.Models.Tag", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
-
                     b.Property<string>("Name");
+
+                    b.Property<int?>("TodosId");
 
                     b.HasKey("Id");
                 });
 
-            modelBuilder.Entity("Project4.Models.Requirement", b =>
+            modelBuilder.Entity("Project4.Models.Todo", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Description");
+                    b.Property<DateTime>("DueDate");
 
                     b.Property<string>("Name");
 
-                    b.Property<int?>("ProjectId");
+                    b.Property<string>("State");
 
                     b.HasKey("Id");
                 });
 
-            modelBuilder.Entity("Project4.Models.Requirement", b =>
+            modelBuilder.Entity("Project4.Models.Tag", b =>
                 {
-                    b.HasOne("Project4.Models.Project")
+                    b.HasOne("Project4.Models.Todo")
                         .WithMany()
-                        .HasForeignKey("ProjectId");
+                        .HasForeignKey("TodosId");
                 });
         }
     }

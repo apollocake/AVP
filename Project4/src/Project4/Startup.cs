@@ -7,7 +7,7 @@ using AutoMapper;
 using Project4.Models;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-//reference clash with Microsoft.Dnx.Compilation.CSharp.ProjectContext and Models.ProjectContext
+//reference clash with Microsoft.Dnx.Compilation.CSharp.ProjectContext and Models.TodoContext
 //using Microsoft.Dnx.Compilation.CSharp;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -48,18 +48,18 @@ namespace Project4
                 opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
                         
-            services.AddEntityFramework().AddSqlServer().AddDbContext<ProjectContext>();
+            services.AddEntityFramework().AddSqlServer().AddDbContext<TodoContext>();
             //dont persist, only for startup
-            services.AddTransient<ProjectAppSeedData>();
+            services.AddTransient<TodoAppSeedData>();
             //when interface is requested provide concrete implementation for decoupling from repository and model
-            services.AddScoped<IProjectRepository, ProjectRepository>();
+            services.AddScoped<ITodoRepository, TodoRepository>();
             //automapper config for mapping acrooss the app
             var config = new MapperConfiguration(c => {c.AddProfile(new ModelToViewModelProfile());});
             services.AddSingleton<IMapper>(sp => config.CreateMapper());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, ProjectAppSeedData seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, TodoAppSeedData seeder)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -70,6 +70,7 @@ namespace Project4
 
             app.UseApplicationInsightsExceptionTelemetry();
 
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseMvc();

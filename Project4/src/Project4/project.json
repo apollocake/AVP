@@ -35,6 +35,9 @@
     "wwwroot",
     "node_modules"
   ],
+  "scripts": {
+    "postrestore": [ "bower install" ]
+  },
   "publishExclude": [
     "**.user",
     "**.vspscc"

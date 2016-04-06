@@ -6,18 +6,18 @@ using Microsoft.Data.Entity;
 
 namespace Project4.Models
 {
-    public class ProjectContext : DbContext
+    public class TodoContext : DbContext
     {
-        public ProjectContext()
+        public TodoContext()
         {
             Database.EnsureCreated();
         }
-        public DbSet<Project> Projects { get; set; }
-        public DbSet<Requirement> Requirements { get; set; }
+        public DbSet<Todo> Todos { get; set; }
+        public DbSet<Tag> Tags { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            var connectionString = Startup.Configuration["Data:ProjectAppConnectionString"];
+            var connectionString = Startup.Configuration["Data:TodoAppConnectionString"];
             optionsBuilder.UseSqlServer(connectionString);
             base.OnConfiguring(optionsBuilder);
         }

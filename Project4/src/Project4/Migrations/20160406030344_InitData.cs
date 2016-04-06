@@ -5,40 +5,40 @@ using Microsoft.Data.Entity.Metadata;
 
 namespace Project4.Migrations
 {
-    public partial class myDatabase : Migration
+    public partial class InitData : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Project",
+                name: "Todo",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    DueDate = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    State = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Project", x => x.Id);
+                    table.PrimaryKey("PK_Todo", x => x.Id);
                 });
             migrationBuilder.CreateTable(
-                name: "Requirement",
+                name: "Tag",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Description = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
-                    ProjectId = table.Column<int>(nullable: true)
+                    TodosId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Requirement", x => x.Id);
+                    table.PrimaryKey("PK_Tag", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Requirement_Project_ProjectId",
-                        column: x => x.ProjectId,
-                        principalTable: "Project",
+                        name: "FK_Tag_Todo_TodosId",
+                        column: x => x.TodosId,
+                        principalTable: "Todo",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -46,8 +46,8 @@ namespace Project4.Migrations
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable("Requirement");
-            migrationBuilder.DropTable("Project");
+            migrationBuilder.DropTable("Tag");
+            migrationBuilder.DropTable("Todo");
         }
     }
 }
