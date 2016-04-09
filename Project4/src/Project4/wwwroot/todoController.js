@@ -68,6 +68,14 @@
                     };
                 myTodoService.updateTodo(angular.toJson(data));
             }
+            $scope.updateWarning = function () {
+
+                var data =
+                    {
+                        "warningDays": 10
+                    };
+                myTodoService.updateWarning(angular.toJson(data));
+            }
 
         });
 })();

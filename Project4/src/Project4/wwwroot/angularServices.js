@@ -11,7 +11,8 @@
         var factory = {
             getTodoData: getTodoData,
             addTodo: addTodo,
-            updateTodo: updateTodo
+            updateTodo: updateTodo,
+            updateWarning: updateWarning
     };
 
         //return handle for later use
@@ -57,6 +58,18 @@
             });
             return deferred.promise;
         }
-
+        function updateWarning(data) {
+            var deferred = $q.defer();
+            $http.put('api/todo/warning', data).then(function successCallBack(response) {
+                //use q promise handler to resolve w/defer function
+                //defers it to the caller to handle the data in the response object
+                deferred.resolve(response.data);
+            }, function errorCallBack(response) {
+                //use q promise handler to resolve w/defer function
+                //defers it to the caller to handle the data in the response object
+                deferred.reject(response.status);
+            });
+            return deferred.promise;
+        }
     }
 })();
