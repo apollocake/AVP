@@ -18,7 +18,9 @@ namespace Project4.Repositories
         }
         public void Create(Todo todo)
         {
-            _context.Todos.Add(todo);
+            //_context.Todos.Add(todo);
+            var todolist = _context.TodoList.Include(z => z.Todos).First(p => p.Id == p.Id);
+            todolist.Todos.Add(todo);
             _context.SaveChanges();
         }
 
