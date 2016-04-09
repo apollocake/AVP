@@ -29,6 +29,7 @@ namespace Project4.Repositories
             var projectToDelete = FindById(id);
             if (projectToDelete != null)
             {
+                projectToDelete.Tags.ToList().ForEach(p => _context.Tags.Remove(p));
                 _context.Todos.Remove(FindById(id));
                 _context.SaveChanges();
             }
@@ -37,7 +38,7 @@ namespace Project4.Repositories
         public Todo FindById(int id)
         {
 
-            var todo = _context.Todos.First(p => p.Id == id);
+            var todo = _context.Todos.Include(z => z.Tags).First(p => p.Id == id);
             return todo;
         }
 
