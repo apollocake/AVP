@@ -61,8 +61,7 @@ namespace Project4.Repositories
             var todoToUpdate = FindById(todo.Id);
             todoToUpdate.Name = todo.Name;
             todoToUpdate.State = todo.State;
-            todoToUpdate.DueDate = todoToUpdate.DueDate;
-            todoToUpdate.Tags = todo.Tags;
+            todoToUpdate.DueDate = todo.DueDate;
             _context.SaveChanges();
         }
     }
