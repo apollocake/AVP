@@ -44,5 +44,30 @@
                     };
                 myTodoService.addTodo(angular.toJson(data));
             }
+
+            $scope.updateTodo = function () {
+
+                var data =
+                    {
+                        "id": 1,
+                        "name": "seed from todoControoler updated",
+                        "state": "Active",
+                        "dueDate": "3/23/2016 12:31:00",
+                        "tags": [
+                            {
+                                "name": "im the first!"
+                            },
+                            {
+                                "name": "I disigreee!"
+                            },
+                            {
+                                 "name": "cool brah!"
+                            }
+                                                        
+                        ]
+                    };
+                myTodoService.updateTodo(angular.toJson(data));
+            }
+
         });
 })();

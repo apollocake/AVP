@@ -62,6 +62,8 @@ namespace Project4.Repositories
             todoToUpdate.Name = todo.Name;
             todoToUpdate.State = todo.State;
             todoToUpdate.DueDate = todo.DueDate;
+            todoToUpdate.Tags.ToList().ForEach(p => _context.Tags.Remove(p));
+            todo.Tags.ToList().ForEach(p => todoToUpdate.Tags.Add(p));
             _context.SaveChanges();
         }
 
