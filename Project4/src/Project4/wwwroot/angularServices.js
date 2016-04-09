@@ -9,8 +9,9 @@
     function myTodoService($http, $q) {
         //link to service
         var factory = {
-            getTodoData: getTodoData
-        };
+            getTodoData: getTodoData,
+            addTodo: addTodo
+    };
 
         //return handle for later use
         return factory;
@@ -29,6 +30,20 @@
             });
             return deferred.promise;
         }
+        function addTodo(data) {
+            var deferred = $q.defer();
+            $http.post('api/todo', data).then(function successCallBack(response) {
+                //use q promise handler to resolve w/defer function
+                //defers it to the caller to handle the data in the response object
+                deferred.resolve(response.data);
+            }, function errorCallBack(response) {
+                //use q promise handler to resolve w/defer function
+                //defers it to the caller to handle the data in the response object
+                deferred.reject(response.status);
+            });
+            return deferred.promise;
+        }
+
 
     }
 })();
