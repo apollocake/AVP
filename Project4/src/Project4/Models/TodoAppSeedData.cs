@@ -26,30 +26,39 @@ namespace Project4.Models
         }
         public void SeedData()
         {
-            if (!_context.Todos.Any())
+            if (!_context.TodoList.Any())
             {
-                _context.Add(new Todo()
+
+                _context.Add(new TodoList()
                 {
-                    Name = "Dig in the garbage",
-                    State = "Active",
-                    DueDate = new DateTime(2016,3,23,12,0,0),
-                    Tags = new List<Tag> {_dummyTag1, _dummyTag2},
+                    Todos = new List<Todo>
+                    {
+                        new Todo()
+                        {
+                            Name = "Dig in the garbage",
+                            State = "Active",
+                            DueDate = new DateTime(2016, 3, 23, 12, 0, 0),
+                            Tags = new List<Tag> {_dummyTag1, _dummyTag2},
+                        },
+                        new Todo()
+                        {
+                            Name = "Question my life",
+                            State = "Completed",
+                            DueDate = new DateTime(2016, 3, 25, 12, 0, 0)
+                        },
+                        new Todo()
+                        {
+                            Name = "Take over the world",
+                            State = "Deleted",
+                            DueDate = new DateTime(2016, 3, 25, 12, 0, 0)
+                        }
+                    },
+
+                    WarningDays = 5
+
                 });
-                _context.Add(new Todo()
-                {
-                    Name = "Question my life",
-                    State = "Completed",
-                    DueDate = new DateTime(2016, 3, 25, 12, 0, 0)
-                });
-                _context.Add(new Todo()
-                {
-                    Name = "Take over the world",
-                    State = "Deleted",
-                    DueDate = new DateTime(2016, 3, 25, 12, 0, 0)
-                });
-                _context.SaveChanges();
+               _context.SaveChanges();
             }
         }
-
     }
 }

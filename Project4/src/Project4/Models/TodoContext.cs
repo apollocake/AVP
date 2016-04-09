@@ -12,6 +12,8 @@ namespace Project4.Models
         {
             Database.EnsureCreated();
         }
+        public DbSet<TodoList> TodoList { get; set; }
+
         public DbSet<Todo> Todos { get; set; }
         public DbSet<Tag> Tags { get; set; }
 

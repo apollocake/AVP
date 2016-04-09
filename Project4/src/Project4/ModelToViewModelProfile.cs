@@ -15,6 +15,7 @@ namespace Project4
             //create OO mapping automation from Model to ViewModels by prop name
             CreateMap<Todo, TodoViewModel>();
             CreateMap<Tag, TagViewModel>();
+            CreateMap<TodoList, TodoListViewModel>();
         }
     }
 }

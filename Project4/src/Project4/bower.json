@@ -4,9 +4,9 @@
   "dependencies": {
     "angular": "1.4.6",
     "angular-bootstrap": "latest",
-    "angular-bootstrap-show-errors": "~2.3.0",
     "angular-ui-router": "0.2.18",
-    "bootstrap": "3.3.5",
+    "angular-bootstrap-show-errors": "2.3.0",
+    "bootstrap": "latest",
     "bootswatch": "3.3.5",
     "font-awesome": "4.4.0",
     "moment": "2.12.0",
