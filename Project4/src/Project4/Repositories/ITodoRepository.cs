@@ -14,7 +14,7 @@ namespace Project4.Repositories
 
         void Update(Todo todo);
 
-        IEnumerable<Todo> List();
+        IEnumerable<TodoList> List();
 
         Todo FindById(int id);
 

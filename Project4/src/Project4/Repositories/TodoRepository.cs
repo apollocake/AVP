@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Project4.Models;
 using Microsoft.Data.Entity;
+using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
 namespace Project4.Repositories
 {
@@ -43,10 +44,12 @@ namespace Project4.Repositories
             return _context.Todos.Where(p => p.Name.Contains(queryString));
         }
 
-        public IEnumerable<Todo> List()
+        public IEnumerable<TodoList> List()
         {
             //Include is to bring the child table with the list
-            var todos = _context.Todos.Include(p => p.Tags).ToList();
+            //var todos = _context.Todos.Include(p => p.Tags).ToList();
+            //var todos = _context.TodoList.Include(l => l.Todos.Select(p => p.Tags)).ToList();
+            var todos = _context.TodoList.Include(l => l.Todos).ThenInclude(z => z.Tags).ToList();
             return todos;
         }
 

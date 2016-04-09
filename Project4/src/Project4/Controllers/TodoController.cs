@@ -28,13 +28,13 @@ namespace Project4.Controllers
         }
         // GET: api/todo
         [HttpGet]
-        public IEnumerable<TodoViewModel> Get()
+        public IEnumerable<TodoListViewModel> Get()
         {
             //get model data
             var todos = _repository.List();
             //automapper will map Todo to TodoViewModel and Tag...Model and using the relationships of TodoViewModel
             //it also kills circular relationships from models for serializability and your OO will look like View Models as far as relationships
-            var mappedTodos = _mapper.Map<IEnumerable<TodoViewModel>>(todos);
+            var mappedTodos = _mapper.Map<IEnumerable<TodoListViewModel>>(todos);
             return mappedTodos;
         }
 
