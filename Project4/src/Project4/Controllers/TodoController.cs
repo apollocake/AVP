@@ -66,7 +66,14 @@ namespace Project4.Controllers
         {
             _repository.Update(newTodo);
         }
+
         //add put for time upddate
+        // PUT api/todo
+        [HttpPut("warning")]
+        public void Put([FromBody]TodoList newTodoList)
+        {
+            _repository.UpdateWarningTime(newTodoList);
+        }
 
         // DELETE api/todo/5
         [HttpDelete("{id}")]

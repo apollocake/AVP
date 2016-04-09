@@ -14,6 +14,8 @@ namespace Project4.Repositories
 
         void Update(Todo todo);
 
+        void UpdateWarningTime(TodoList todoList);
+
         IEnumerable<TodoList> List();
 
         Todo FindById(int id);

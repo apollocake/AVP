@@ -64,5 +64,12 @@ namespace Project4.Repositories
             todoToUpdate.DueDate = todo.DueDate;
             _context.SaveChanges();
         }
+
+        public void UpdateWarningTime(TodoList todoList)
+        {
+            var todoListToUpdate = _context.TodoList.First(p => p.Id == p.Id);
+            todoListToUpdate.WarningDays = todoList.WarningDays;
+            _context.SaveChanges();
+        }
     }
 }
