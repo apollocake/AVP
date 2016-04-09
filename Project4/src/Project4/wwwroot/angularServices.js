@@ -136,7 +136,7 @@
 
     angular
         .module('app')
-        .factory('myTodoService', myTodoService());
+        .factory('myTodoService', myTodoService);
 
 
     function myTodoService($http, $q) {
@@ -151,7 +151,7 @@
         //implement actual data usage in controller
         function getTodoData() {
             var deferred = $q.defer();
-            $http.get('api.github.com').then(function successCallBack(response) {
+            $http.get('api/todo').then(function successCallBack(response) {
                 //use q promise handler to resolve w/defer function
                 //defers it to the caller to handle the data in the response object
                 deferred.resolve(response.data);

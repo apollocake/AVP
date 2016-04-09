@@ -1,19 +1,16 @@
-﻿//controller for user state
-(function () {
+﻿(function () {
     'use strict';
 
     angular
         .module('app')
-        .controller('todoController', [
-            '$scope',
-            function ($scope) {
-                console.log('im here');
-                $scope.printScope = function () {
-                    console.log('todo data');
-                    console.log($scope.todoData);
-                }
-                
-            }
-        ]);
-})();
+        .controller('todoController', function todoController($scope, $q, myTodoService) {
 
+            $scope.printScope = function () {
+                myTodoService.getTodoData().then(
+                        function (data) {
+                            $scope.todos = data;
+                            console.log($scope.todos);
+                        });
+            }
+        });
+})();
