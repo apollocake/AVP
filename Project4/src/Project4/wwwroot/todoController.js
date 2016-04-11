@@ -8,7 +8,7 @@
             $scope.moment = moment;
             //
             $scope.mytime = new Date();
-            
+            $scope.warningDays = 0;
 
             $scope.hstep = 1;
             $scope.mstep = 1;
@@ -135,6 +135,7 @@
                             $scope.todoList = dataString;
                             console.log($scope.todoList);
                             $scope.warningDays = $scope.todoList[0].warningDays;
+                            console.log('warning days below');
                             console.log($scope.todoList[0].warningDays);
                             //needed to flush old todos!
                             $scope.todos = $scope.todoList[0].todos;
@@ -186,24 +187,45 @@
                     myTodoService.updateTodo(angular.toJson(data));
             }
 
+            $scope.makeCompleted = function (todo) {
+                var tags = todo.tags;
+                var data =
+                    {
+                        "id": todo.id,
+                        "name": todo.name,
+                        "state": 'Completed',
+                        "dueDate": todo.dueDate,
+                        "tags": tags
+                    };
+                myTodoService.updateTodo(angular.toJson(data));
+                todo.state = 'Completed';
+            }
+
+            $scope.makeUncompleted = function (todo) {
+                var tags = todo.tags;
+                var data =
+                    {
+                        "id": todo.id,
+                        "name": todo.name,
+                        "state": 'Active',
+                        "dueDate": todo.dueDate,
+                        "tags": tags
+                    };
+                myTodoService.updateTodo(angular.toJson(data));
+                todo.state = 'Active';
+            }
+
 
 
 
             $scope.addItem = function() {
-
+                var time = moment().add(7, 'days').local().utc().format('M/D/Y HH:mm:ss');
                 var data =
                     {
                         "name": $scope.newTodo.name,
-                        "state": "Completed",
-                        "dueDate": "3/23/2016 12:31:00",
-                        "tags": [
-                            {
-                                "name": "wilson!"
-                            },
-                            {
-                                "name": "wilson yeah!"
-                            }
-                        ]
+                        "state": "Active",
+                        "dueDate": time,
+                        "tags": []
                     };
                 myTodoService.addTodo(angular.toJson(data));
                 $scope.newTodo = {};
