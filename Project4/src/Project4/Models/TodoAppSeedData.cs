@@ -10,12 +10,16 @@ namespace Project4.Models
         private TodoContext _context;
         private Tag _dummyTag1 = new Tag();
         private Tag _dummyTag2 = new Tag();
+        private Tag _dummyTag3 = new Tag();
+        private Tag _dummyTag4 = new Tag();
 
         public TodoAppSeedData(TodoContext context)
         {
             _context = context;
             _dummyTag1.Name = "dummy name1";
             _dummyTag2.Name = "dummy name2";
+            _dummyTag3.Name = "dummy name1";
+            _dummyTag4.Name = "dummy name3";
         }
 
         public void DeleteDatabase()
@@ -38,19 +42,21 @@ namespace Project4.Models
                             Name = "Dig in the garbage",
                             State = "Active",
                             DueDate = new DateTime(2016, 3, 23, 12, 0, 0),
-                            Tags = new List<Tag> {_dummyTag1, _dummyTag2},
+                            Tags = new List<Tag> {_dummyTag1, _dummyTag2}
                         },
                         new Todo()
                         {
                             Name = "Question my life",
                             State = "Completed",
-                            DueDate = new DateTime(2016, 3, 25, 12, 0, 0)
+                            DueDate = new DateTime(2016, 3, 25, 12, 0, 0),
+                            Tags = new List<Tag> {_dummyTag3, _dummyTag4}
                         },
                         new Todo()
                         {
                             Name = "Take over the world",
                             State = "Deleted",
-                            DueDate = new DateTime(2016, 3, 25, 12, 0, 0)
+                            DueDate = new DateTime(2016, 3, 25, 12, 0, 0),
+                            Tags = new List<Tag> { },
                         }
                     },
 

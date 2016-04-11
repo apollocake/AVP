@@ -1,3 +1,15 @@
 ﻿[ng\:cloak], [ng-cloak], .ng-cloak {
     display: none;
 }
+.btn.nohover:hover {
+    /* here copy default .btn class styles */
+    cursor:default !important;
+    /* or something like that */
+}
+
+.sortorder:after {
+  content: '\25b2';
+}
+.sortorder.reverse:after {
+  content: '\25bc';
+}

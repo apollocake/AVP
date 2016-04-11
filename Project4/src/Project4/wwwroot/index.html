@@ -26,26 +26,130 @@
         </div>
         <!-- /.container-fluid -->
     </nav>
-    <div class="container" ng-controller="todoController">
-        <!--<div ui-view></div>-->
-        <button class="btn" ng-click="printScope()">Print scope</button>
-        <button class="btn" ng-click="printData()">Print data</button>
-        <button class="btn" ng-click="addItem()">Add Item</button>
-        <button class="btn" ng-click="updateTodo()">Update Item</button>
-        <button class="btn" ng-click="updateWarning()">Update Warning</button>
+<div class="container" ng-controller="todoController" ng-init="printData()">
+    <h1>Todo Items</h1>
+    
+        <input type="search" ng-model="q" placeholder="filter by tag..." aria-label="filter by tag" />
+    <br/>
+    <div class="list-group">
+
+        <pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>
+        <p>press enter to save todo items...</p>
+
+        <span>
+            <button ng-click="order('name')">Name</button>
+            <span class="sortorder" ng-show="predicate === 'name'" ng-class="{reverse:reverse}"></span>
+        </span>
+        <span>
+            <button ng-click="order('dueDate')">Due Date</button>
+            <span class="sortorder" ng-show="predicate === 'dueDate'" ng-class="{reverse:reverse}"></span>
+        </span>
+        <div class="list-group-item clearfix" ng-repeat="todo in todos | filter:q | orderBy:predicate:reverse track by todo.id" ng-if="todo.state!=='Deleted'">
+                <!--working-->
+            <!--<button class="btn nohover" ng-class="todo.state==='Active' && 'btn-warning' || todo.state==='Completed' && 'btn-success' || 'btn-danger'">{{todo.name}}</button>-->
+            <div class="col-xs-4">
+            <input class="form-control" ng-model="todo.name" my-enter="printTodo(todo)" ng-class="todo.state==='Active' && 'btn-warning' || todo.state==='Completed' && 'btn-success' || 'btn-danger'" size="20">
+            </div>
+            <p>{{moment.utc(todo.dueDate).local().format('MM-DD HH:mm a')}}</p>
+
+
+
+            <div ng-controller="todoController">
+
+                <uib-timepicker ng-model="mytime" ng-change="changed()" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></uib-timepicker>
+
+                <pre class="alert alert-info">Time is: {{mytime | date:'shortTime' }}</pre>
+
+                <div class="row">
+                    <div class="col-xs-6">
+                        Hours step is:
+                        <select class="form-control" ng-model="hstep" ng-options="opt for opt in options.hstep"></select>
+                    </div>
+                    <div class="col-xs-6">
+                        Minutes step is:
+                        <select class="form-control" ng-model="mstep" ng-options="opt for opt in options.mstep"></select>
+                    </div>
+                </div>
+
+                <hr>
+
+                <button type="button" class="btn btn-info" ng-click="toggleMode()">12H / 24H</button>
+                <button type="button" class="btn btn-default" ng-click="update()">Set to 14:00</button>
+                <button type="button" class="btn btn-danger" ng-click="clear()">Clear</button>
+
+            </div>
+
+
+
+
+
+
+            <span class="pull-right">
+                <span ng-repeat="tag in todo.tags">
+                    <button class="btn btn-xs">
+                        {{tag.name}}
+                    </button>
+
+                </span>
+                    <button class="btn btn-xs btn-danger">
+                        <span class="glyphicon glyphicon-trash" ng-click="deleteId(todo.id)"></span>
+                    </button>
+                </span>
+           
+
+        </div>
+        <div class="list-group-item clearfix">
+            <span class="btn glyphicon glyphicon-plus" ng-click="addItem()"></span>
+            <input type="text" ng-model="newTodo.name"/>
+            <p>{{newTodo.name}}</p>
+        </div>
+
     </div>
+    <button class="btn" ng-click="printScope()">Print scope</button>
+    <button class="btn" ng-click="printData()">Print data</button>
+    <button class="btn" ng-click="addItem()">Add Item</button>
+    <button class="btn" ng-click="updateTodo()">Update Item</button>
+    <button class="btn" ng-click="updateWarning()">Update Warning</button>
+    <button class="btn" ng-click="deleteTodo()">delete first item</button>
+    <div>
+        <p>warning days is {{warningDays}}</p>
+        I have {{todos.length}} todos in my list. They are:
+        <!--<input type="search" ng-model="q" placeholder="filter friends..." aria-label="filter friends"/>-->
+        <ul class="example-animate-container">
+            <li class="animate-repeat" ng-repeat="todo in todos | orderBy: 'name' track by todo.id">
+                [{{$index + 1}}] {{todo.name}} {{todo.id}}
+                
+                    <span class="animate-repeat" ng-repeat="tag in todo.tags">
+                        {{tag.name}}
+                    </span>
+                
+            </li>
+            <li class="animate-repeat" ng-if="todos.length == 0">
+                <strong>No results found...</strong>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
     <!--<div class="container" ng-controller="settingsController">
         <label>Settings</label><br />
 
     </div>-->
     <script src="/lib/jquery/dist/jquery.js" type="text/javascript"></script>
-    <script src="/lib/angular/angular.js"></script>
+<script src="/lib/angular/angular.js"></script>
     <script src="/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="/lib/toastr/toastr.js"></script>
-    <script src="/lib/angular-bootstrap-show-errors/src/showErrors.min.js" type="text/javascript"></script>
+<script src="/lib/toastr/toastr.js"></script>
+<script src="/lib/bootstrap/dist/js/bootstrap.js" type="text/javascript"></script>
+<script src="/lib/angular-bootstrap-show-errors/src/showErrors.min.js" type="text/javascript"></script>
+<script src="/lib/bootstrap-table/src/bootstrap-table.js" type="text/javascript"></script>
+    <script src="/lib/bootstrap-table/src/extensions/editable/bootstrap-table-editable.js" type="text/javascript"></script>
 <script src="/app.js" type="text/javascript"></script>
+    <script src="/filters.js" type="text/javascript"></script>
+
     <script src="/todoController.js" type="text/javascript"></script>
 <script src="/angularServices.js" type="text/javascript"></script>
+<script src="lib/moment/moment.js" type="text/javascript"></script>
 
 
 </body>

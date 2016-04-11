@@ -12,7 +12,8 @@
             getTodoData: getTodoData,
             addTodo: addTodo,
             updateTodo: updateTodo,
-            updateWarning: updateWarning
+            updateWarning: updateWarning,
+            deleteTodo: deleteTodo
     };
 
         //return handle for later use
@@ -61,6 +62,20 @@
         function updateWarning(data) {
             var deferred = $q.defer();
             $http.put('api/todo/warning', data).then(function successCallBack(response) {
+                //use q promise handler to resolve w/defer function
+                //defers it to the caller to handle the data in the response object
+                deferred.resolve(response.data);
+            }, function errorCallBack(response) {
+                //use q promise handler to resolve w/defer function
+                //defers it to the caller to handle the data in the response object
+                deferred.reject(response.status);
+            });
+            return deferred.promise;
+        }
+
+        function deleteTodo(id) {
+            var deferred = $q.defer();
+            $http.delete('api/todo/' + id).then(function successCallBack(response) {
                 //use q promise handler to resolve w/defer function
                 //defers it to the caller to handle the data in the response object
                 deferred.resolve(response.data);

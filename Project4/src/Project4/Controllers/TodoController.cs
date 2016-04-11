@@ -5,6 +5,8 @@ using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNet.Mvc;
+using Microsoft.AspNet.Mvc.Filters;
+
 //using Microsoft.Dnx.Compilation.CSharp;
 using Project4.ViewModels;
 using Project4.Models;
