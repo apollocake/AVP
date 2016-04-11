@@ -21,19 +21,8 @@
         <!-- /.container-fluid -->
     </nav>
 <div class="container" ng-controller="todoController" ng-init="printData()">
-    <a href="#" id="popoverExampleTwo">Change Warning Duration</a>
+    <a href="warning.html">Change Warning Duration</a>
 
-    <!-- Popover 2 hidden content -->
-    <div id="popoverExampleTwoHiddenContent">
-        <div>
-            <input type="text" ng-model="warningDays" my-enter="printScope()">
-
-        </div>
-    </div>
-    <!-- Popover 2 hidden title -->
-    <div id="popoverExampleTwoHiddenTitle" style="display: none">
-        Warning Duration
-    </div>
 
     <h1>Todo Items</h1> Show Completed:
     <input type="checkbox" ng-model="completed" aria-label="Toggle ngHide">
