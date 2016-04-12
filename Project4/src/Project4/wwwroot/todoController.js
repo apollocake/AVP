@@ -309,10 +309,12 @@
             $scope.updateWarning = function () {
 
                 var data =
-                    {
-                        "warningDays": 10
-                    };
+                {
+                    "id": 1,
+                    "warningDays": $scope.warningDays
+            };
                 myTodoService.updateWarning(angular.toJson(data));
+                window.location = "/";
             }
             $scope.deleteTodo = function () {
                 var id = 1;

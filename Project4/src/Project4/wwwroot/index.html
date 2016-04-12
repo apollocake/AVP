@@ -34,7 +34,9 @@
         <div class="check-element animate-show" ng-show="completed">
             <div class="list-group">
                 <pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>
-                <p>press enter to save todo items...</p> <span>
+                <p>press enter to save todo items and dates...</p>
+                <p>press plus icon to add todos and tags...</p>
+                <span>
                         <button ng-click="order('name')">Name</button>
                         <span class="sortorder" ng-show="predicate === 'name'" ng-class="{reverse:reverse}"></span>
                     </span> <span>
