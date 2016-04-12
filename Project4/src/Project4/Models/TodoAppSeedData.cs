@@ -54,7 +54,7 @@ namespace Project4.Models
                         new Todo()
                         {
                             Name = "Take over the world",
-                            State = "Deleted",
+                            State = "Completed",
                             DueDate = new DateTime(2016, 3, 25, 12, 0, 0),
                             Tags = new List<Tag> { },
                         }
