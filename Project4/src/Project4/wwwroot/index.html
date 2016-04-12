@@ -30,10 +30,9 @@
     <input type="search" ng-model="p" placeholder="filter by tag or name..." aria-label="filter by tag"/>
     <input type="search" ng-model="q" placeholder="filter by tag.or name.." aria-label="filter by tag"/>
     <div>
-        Show:
         <div class="check-element animate-show" ng-show="completed">
             <div class="list-group">
-                <pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>
+                <!--<pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>-->
                 <p>press enter to save todo items and dates...</p>
                 <p>press plus icon to add todos and tags...</p>
                 <span>
@@ -46,51 +45,82 @@
                 <!-- broken, tag only filter won't work with zero tags -->
                 <!--<div class="list-group-item clearfix" ng-repeat="todo in todos | filter:{tags: {name: p}} | filter:{tags: {name: q}} |orderBy:predicate:reverse track by todo.id" ng-if="todo.state==='Completed'">-->
                 <div class="list-group-item clearfix" ng-repeat="todo in todos | filter:p | filter:q |orderBy:predicate:reverse track by todo.id" ng-if="todo.state==='Completed'">
-                    <div class="col-xs-2    ">
-                        <span>
-<button ng-click="makeUncompleted(todo)">
-                                <p class="glyphicon glyphicon-repeat"></p>
-                                <p class="glyphicon glyphicon-list-alt"></p>
-    </button>
-                                </span>
-                    </div>
-                    <div class="col-xs-4">
-                        <!--<input class="form-control" ng-model="todo.name" my-enter="printTodo(todo)" ng-class="todo.state==='Active' && 'btn-warning' || todo.state==='Completed' && 'btn-success' || 'btn-danger'" size="20">-->
-                        <input class="form-control" ng-model="todo.name" my-enter="printTodo(todo)" ng-class="durationCheck(todo)==='red' && 'btn-danger' || durationCheck(todo)==='yellow' && 'btn-warning' || 'btn-success'" size="20">
-                    </div>
-                    <!--working-->
-                    <!--<p>{{moment.utc(todo.dueDate).local().format('MM-DD HH:mm a')}}</p>-->
-                    <div ng-model="todo">
-                        <div> Due Date: </div>
-                        <!--<span>year<i ng-bind="dateToYear(todo.dueDate)"></i>/
-                <i ng-bind="dateToMonth(todo.dueDate)"></i>/
-                <i ng-bind="dateToDay(todo.dueDate)"></i>-
-            <i ng-bind="dateToHour(todo.dueDate)"></i>
-            :<i ng-bind="dateToMinute(todo.dueDate)"></i>
-            </span>-->
-                        <!-- change y/d/t with nasty popup if i can -->
-                        <div class="col-xs-1" my-enter="printFullDate(todo)">
-                            Year:
-                            <input class="form-control" ng-model="todo.year"> Month:
-                            <input class="form-control" ng-model="todo.month"> Day:
-                            <input class="form-control" ng-model="todo.day"> Hours:
-                            <input class="form-control" ng-model="todo.hours"> Minutes:
-                            <input class="form-control" ng-model="todo.minutes">
-                        </div>
-                        <button class="btn" ng-click="printFullDate(todo)">Print Full date</button>
-                        <button class="btn" ng-click="printTodo(todo)">Print Todo</button>
-                    </div> <span class="pull-right">
-                                <div class="list-group-item clearfix">
-                                    <span class="btn glyphicon glyphicon-plus" ng-click="addTag(todo,newTag)"></span>
-                                    <input type="text" ng-model="newTag.name" />
-                                    <p>{{newTag.name}}</p>
-                                </div> <span ng-repeat="tag in todo.tags">
-                                    <button class="btn btn-xs" ng-click="deleteTag(todo,tag)">
-                                        <span class="glyphicon glyphicon-remove"></span> {{tag.name}}
+
+                    
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <span>
+                                    <button ng-click="makeUncompleted(todo)">
+                                        <p class="glyphicon glyphicon-repeat"></p>
+                                        <p class="glyphicon glyphicon-list-alt"></p>
                                     </button>
                                 </span>
-                                <button class="btn btn-xs btn-danger"> <span class="glyphicon glyphicon-trash" ng-click="deleteId(todo.id)"></span> </button>
-                            </span>
+                            </div>
+                            <div class="col-sm-5">
+
+                                <input class="form-control" ng-model="todo.name" my-enter="printTodo(todo)" ng-class="durationCheck(todo)==='red' && 'btn-danger' || durationCheck(todo)==='yellow' && 'btn-warning' || 'btn-success'" size="20">
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div ng-model="todo" my-enter="printFullDate(todo)">
+                                <div class="col-sm-8">
+
+                                    <div> Due Date: </div>
+                                    <div class="col-sm-2">
+                                        Year:
+                                        <input class="form-control" ng-model="todo.year">
+                                    </div>
+                                    <div class="col-sm-2">
+
+                                        Month:
+                                        <input class="form-control" ng-model="todo.month">
+                                    </div>
+
+                                    <div class="col-sm-2">
+
+                                        Day:
+                                        <input class="form-control" ng-model="todo.day">
+                                    </div>
+
+
+                                    <div class="col-sm-2">
+
+                                        Hours:
+                                        <input class="form-control" ng-model="todo.hours">
+                                    </div>
+
+                                    <div class="col-sm-2">
+
+
+                                        Minutes:
+                                        <input class="form-control" ng-model="todo.minutes">
+                                    </div>
+
+                                    <!--<button class="btn" ng-click="printFullDate(todo)">Print Full date</button>-->
+                                    <!--<button class="btn" ng-click="printTodo(todo)">Print Todo</button>-->
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="pull-right">
+                                        <div class="list-group-item clearfix">
+                                            <span class="btn glyphicon glyphicon-plus" ng-click="addTag(todo,newTag)"></span>
+                                            <input type="text" ng-model="newTag.name" />
+                                            <p>{{newTag.name}}</p>
+                                        </div> <span ng-repeat="tag in todo.tags">
+                                            <button class="btn btn-xs" ng-click="deleteTag(todo,tag)">
+                                                <span class="glyphicon glyphicon-remove"></span> {{tag.name}}
+                                            </button>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+
                 </div>
                 <div class="list-group-item clearfix">
                     <span class="btn glyphicon glyphicon-plus" ng-click="addItem()"></span>
@@ -101,11 +131,12 @@
         </div>
     </div>
     <div>
-        Hide:
         <div class="check-element animate-show" ng-hide="completed">
             <div class="list-group">
-                <pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>
-                <p>press enter to save todo items...</p> <span>
+                <!--<pre>Sorting predicate = {{predicate}}; reverse = {{reverse}}</pre>-->
+                <p>press enter to save todo items and dates...</p>
+                <p>press plus icon to add todos and tags...</p> 
+                <span>
                         <button ng-click="order('name')">Name</button>
                         <span class="sortorder" ng-show="predicate === 'name'" ng-class="{reverse:reverse}"></span>
                     </span> <span>
@@ -113,48 +144,82 @@
                         <span class="sortorder" ng-show="predicate === 'dueDate'" ng-class="{reverse:reverse}"></span>
                     </span>
                 <!-- broken, tag only filter won't work with zero tags -->
-                <!--<div class="list-group-item clearfix" ng-repeat="todo in todos | filter:{tags: {name: p}} | filter:{tags: {name: q}} |orderBy:predicate:reverse track by todo.id" ng-if="todo.state==='Completed'">-->
                 <div class="list-group-item clearfix" ng-repeat="todo in todos | filter:p | filter:q |orderBy:predicate:reverse track by todo.id" ng-if="todo.state!=='Completed'">
-                    <div class="col-xs-1">
-                        <span class="btn btn-default glyphicon glyphicon-ok" ng-click="makeCompleted(todo)"></span>
-                    </div>
-                    <div class="col-xs-4">
-                        <!--<input class="form-control" ng-model="todo.name" my-enter="printTodo(todo)" ng-class="todo.state==='Active' && 'btn-warning' || todo.state==='Completed' && 'btn-success' || 'btn-danger'" size="20">-->
-                        <input class="form-control" ng-model="todo.name" my-enter="printTodo(todo)" ng-class="durationCheck(todo)==='red' && 'btn-danger' || durationCheck(todo)==='yellow' && 'btn-warning' || 'btn-success'" size="20">
-                    </div>
+
+
                     <!--working-->
                     <!--<p>{{moment.utc(todo.dueDate).local().format('MM-DD HH:mm a')}}</p>-->
-                    <div ng-model="todo">
-                        <div> Due Date: </div>
-                        <!--<span>year<i ng-bind="dateToYear(todo.dueDate)"></i>/
-                                <i ng-bind="dateToMonth(todo.dueDate)"></i>/
-                                <i ng-bind="dateToDay(todo.dueDate)"></i>-
-                            <i ng-bind="dateToHour(todo.dueDate)"></i>
-                            :<i ng-bind="dateToMinute(todo.dueDate)"></i>
-                            </span>-->
-                        <!-- change y/d/t with nasty popup if i can -->
-                        <div class="col-xs-1" my-enter="printFullDate(todo)">
-                            Year:
-                            <input class="form-control" ng-model="todo.year"> Month:
-                            <input class="form-control" ng-model="todo.month"> Day:
-                            <input class="form-control" ng-model="todo.day"> Hours:
-                            <input class="form-control" ng-model="todo.hours"> Minutes:
-                            <input class="form-control" ng-model="todo.minutes">
+
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-1">
+                                <span class="btn btn-default glyphicon glyphicon-ok" ng-click="makeCompleted(todo)"></span>
+                            </div>
+                            <div class="col-sm-5">
+
+                                <input class="form-control" ng-model="todo.name" my-enter="printTodo(todo)" ng-class="durationCheck(todo)==='red' && 'btn-danger' || durationCheck(todo)==='yellow' && 'btn-warning' || 'btn-success'" size="20">
+                            </div>
                         </div>
-                        <button class="btn" ng-click="printFullDate(todo)">Print Full date</button>
-                        <button class="btn" ng-click="printTodo(todo)">Print Todo</button>
-                    </div> <span class="pull-right">
-                            <div class="list-group-item clearfix">
-                                <span class="btn glyphicon glyphicon-plus" ng-click="addTag(todo,newTag)"></span>
-                                <input type="text" ng-model="newTag.name" />
-                                <p>{{newTag.name}}</p>
-                            </div> <span ng-repeat="tag in todo.tags">
-                                <button class="btn btn-xs" ng-click="deleteTag(todo,tag)">
-                                    <span class="glyphicon glyphicon-remove"></span> {{tag.name}}
-                                </button>
-                            </span>
-                            <!--<button class="btn btn-xs btn-danger"> <span class="glyphicon glyphicon-trash" ng-click="deleteId(todo.id)"></span> </button>-->
-                        </span>
+                        <div class="row">
+
+                            <div ng-model="todo" my-enter="printFullDate(todo)">
+                                <div class="col-sm-8">
+
+                                    <div> Due Date: </div>
+                                    <div class="col-sm-2">
+                                        Year:
+                                        <input class="form-control" ng-model="todo.year">
+                                    </div>
+                                    <div class="col-sm-2">
+
+                                        Month:
+                                        <input class="form-control" ng-model="todo.month">
+                                    </div>
+
+                                    <div class="col-sm-2">
+
+                                        Day:
+                                        <input class="form-control" ng-model="todo.day">
+                                    </div>
+
+
+                                    <div class="col-sm-2">
+
+                                        Hours:
+                                        <input class="form-control" ng-model="todo.hours">
+                                    </div>
+
+                                    <div class="col-sm-2">
+
+
+                                        Minutes:
+                                        <input class="form-control" ng-model="todo.minutes">
+                                    </div>
+
+                                    <!--<button class="btn" ng-click="printFullDate(todo)">Print Full date</button>-->
+                                    <!--<button class="btn" ng-click="printTodo(todo)">Print Todo</button>-->
+                                </div>
+                                <div class="col-sm-4">
+                                    <span class="pull-right">
+                                        <div class="list-group-item clearfix">
+                                            <span class="btn glyphicon glyphicon-plus" ng-click="addTag(todo,newTag)"></span>
+                                            <input type="text" ng-model="newTag.name" />
+                                            <p>{{newTag.name}}</p>
+                                        </div> <span ng-repeat="tag in todo.tags">
+                                            <button class="btn btn-xs" ng-click="deleteTag(todo,tag)">
+                                                <span class="glyphicon glyphicon-remove"></span> {{tag.name}}
+                                            </button>
+                                        </span>
+                                    </span>
+                                </div>
+                            </div>
+                            </div>
+
+
+
+                    </div>
+                    
+
                 </div>
                 <div class="list-group-item clearfix">
                     <span class="btn glyphicon glyphicon-plus" ng-click="addItem()"></span>
@@ -165,27 +230,6 @@
         </div>
     </div>
     <br/>
-    <button class="btn" ng-click="printScope()">Print scope</button>
-    <button class="btn" ng-click="printData()">Print data</button>
-    <button class="btn" ng-click="addItem()">Add Item</button>
-    <button class="btn" ng-click="updateTodo()">Update Item</button>
-    <button class="btn" ng-click="updateWarning()">Update Warning</button>
-    <button class="btn" ng-click="deleteTodo()">delete first item</button>
-    <div>
-        <p>warning days is {{warningDays}}</p> I have {{todos.length}} todos in my list. They are:
-        <!--<input type="search" ng-model="q" placeholder="filter friends..." aria-label="filter friends"/>-->
-        <ul class="example-animate-container">
-            <li class="animate-repeat" ng-repeat="todo in todos | orderBy: 'name' track by todo.id">
-                [{{$index + 1}}] {{todo.name}} {{todo.id}} <span class="animate-repeat" ng-repeat="tag in todo.tags">
-                        {{tag.name}}
-                    </span>
-            </li>
-            <li class="animate-repeat" ng-if="todos.length == 0"> <strong>No results found...</strong> </li>
-        </ul>
-    </div>
-</div>
-    <!--<div class="container" ng-controller="settingsController">
-        <label>Settings</label><br />
 
     </div>-->
     <script src="/lib/jquery/dist/jquery.js" type="text/javascript"></script>
