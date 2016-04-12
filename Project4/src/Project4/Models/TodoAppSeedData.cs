@@ -60,7 +60,7 @@ namespace Project4.Models
                         }
                     },
 
-                    WarningDays = 5
+                    WarningDays = 2
 
                 });
                _context.SaveChanges();
