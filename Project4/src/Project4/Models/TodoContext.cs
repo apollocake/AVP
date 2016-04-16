@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 
 namespace Project4.Models
 {
-    public class TodoContext : DbContext
+    public class TodoContext : IdentityDbContext<TodoUser>
     {
         public TodoContext()
         {

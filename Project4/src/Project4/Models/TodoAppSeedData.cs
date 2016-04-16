@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
 namespace Project4.Models
 {
@@ -12,10 +13,12 @@ namespace Project4.Models
         private Tag _dummyTag2 = new Tag();
         private Tag _dummyTag3 = new Tag();
         private Tag _dummyTag4 = new Tag();
+        private UserManager<TodoUser> _userManager;
 
-        public TodoAppSeedData(TodoContext context)
+        public TodoAppSeedData(TodoContext context, UserManager<TodoUser> userManager )
         {
             _context = context;
+            _userManager = userManager;
             _dummyTag1.Name = "dummy name1";
             _dummyTag2.Name = "dummy name2";
             _dummyTag3.Name = "dummy name1";
@@ -28,8 +31,19 @@ namespace Project4.Models
             _context.Database.EnsureDeleted();
             _context.SaveChanges();
         }
-        public void SeedData()
+        public async Task SeedData()
         {
+            if (await _userManager.FindByNameAsync("afton") == null)
+            {
+                var aftonuser = new TodoUser()
+                {
+                    UserName = "afton",
+                    Email = "amartin33@uco.edu"
+                };
+                //password is hello2
+                var IdentityResult = await _userManager.CreateAsync(aftonuser, "Hello123!");
+
+            }
             if (!_context.TodoList.Any())
             {
 
@@ -63,7 +77,7 @@ namespace Project4.Models
                     WarningDays = 2
 
                 });
-               _context.SaveChanges();
+                _context.SaveChanges();
             }
         }
     }

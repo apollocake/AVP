@@ -12,6 +12,8 @@ namespace Project4.Models
 
         public int WarningDays { get; set; }
         public ICollection<Todo> Todos { get; set; }
+
+        public string Username { get; set; }
     
     }
 }

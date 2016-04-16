@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNet.Authentication.Cookies;
 //building awareness
 using Project4.Models;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Identity.EntityFramework;
 //reference clash with Microsoft.Dnx.Compilation.CSharp.ProjectContext and Models.TodoContext
 //using Microsoft.Dnx.Compilation.CSharp;
 using Microsoft.Extensions.Configuration;
@@ -47,7 +50,27 @@ namespace Project4
             {
                 opt.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
-                        
+
+            services.AddIdentity<TodoUser, IdentityRole>(
+                c =>
+                {
+                    c.Password.RequiredLength = 3;
+                    c.User.RequireUniqueEmail = true;
+                    c.Password.RequireNonLetterOrDigit = false;
+                    c.Password.RequireUppercase = false;
+                    c.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents()
+                    {
+                        OnRedirectToLogin = ctx =>
+                        {
+                            if (ctx.Request.Path.StartsWithSegments("/api"))
+                            {
+                                ctx.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
+                            }
+                            return Task.FromResult(0);
+                        }
+                    };
+
+                }).AddEntityFrameworkStores<TodoContext>();
             services.AddEntityFramework().AddSqlServer().AddDbContext<TodoContext>();
             //dont persist, only for startup
             services.AddTransient<TodoAppSeedData>();
@@ -59,7 +82,7 @@ namespace Project4
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, TodoAppSeedData seeder)
+        public async void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, TodoAppSeedData seeder)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -72,11 +95,11 @@ namespace Project4
 
             app.UseDefaultFiles();
             app.UseStaticFiles();
-
+            app.UseIdentity();
             app.UseMvc();
 
            //seeder.DeleteDatabase();
-           seeder.SeedData();
+           await seeder.SeedData();
 
         }
 

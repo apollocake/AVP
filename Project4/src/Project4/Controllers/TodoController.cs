@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Mvc;
 using Microsoft.AspNet.Mvc.Filters;
 
@@ -18,6 +19,7 @@ namespace Project4.Controllers
 {
     //[controller] is .NET binding with [Todo]Controller to ->> api/todo
     [Route("api/[controller]")]
+    [Authorize]
     public class TodoController : Controller
     {
         private ITodoRepository _repository;
